@@ -4,6 +4,199 @@
 
 # 有了java基础，迅速学完Python并做了一份笔记-全套Python，建议收藏
 
+# 北交练习
+
+```
+Week 9 | Hello Python
+
+In this lab, you will be working independently.
+If you’re not yet familiar with the Python development environment (PyCharm), please watch a tutorial—either one available on YouTube or the one I’ve uploaded for you.
+
+Exercise 1: Hello Python
+Write and run a small Python program that prints “hello, world”. To do so, open a file called hello.py,  write your code in it, save it, and run python hello.py.
+
+Exercise 2: Hello You
+Adapt your hello-world-program to instead ask for a name and then print hello, <name>.
+Modify it again to print Hello: "<name>"
+
+Exercise 3: Calculator
+Write a python program that reads two numbers as input and then asks for one of the operations add,  subtract, multiply, divide, and power. The program should then print <a> <op> <b> = <a op b>, where a and b are the two numbers and op the operation.
+For example, the program could do something like this:
+1 	First: 11
+2 	Second: 2
+3 	Operation: +
+4 	11 + 2 = 13
+
+Exercise 4: Temperature Conversion
+We want to write a conversion tool to convert between temperatures. The programme should be able to do conversions between Kelvin, Celsius, and Fahrenheit. To this end, your program should ask the user for a value, the unit in which it is given, and the unit we want to convert to. For example:
+1 	Value: 23.2
+2 	Unit: Celsius
+3 	Conversion: Kelvin
+4 	Value of 23.2°C is 296.35K
+
+Loop up the conversion rates, write the program, and test it on several inputs.
+
+Exercise 5: Factorial Calculator
+Create a program that calculates the factorial of a non-negative integer, and print an
+error message if the number is negative.
+Try both with and without recursion.
+
+Exercise 6: Prime Number Checker
+Write a Python program that takes a number as input from the user and checks whether
+it is a prime number or not. Create a boolean function is_prime(n) that takes a single integer parameter and returns True if the number is a prime, and False otherwise.
+Prime Number Definition: A prime number is a natural number greater than 1 that has no positive divisors other than 1 and itself.
+1.	Implement the following logic:
+o	Basic Cases:
+	If the number is less than or equal to 1 → Not prime
+	If the number is 2 or 3 → Prime
+o	Divisibility Checks:
+	If the number is divisible by 2 or 3 → Not prime
+	Otherwise, check divisibility from 5 to √n using a loop.
+	Only check numbers of the form 6k ± 1 (i.e., increment by 6, checking i and i + 2 each time).
+2.	In your main program, prompt the user to enter a number and use the is_prime() function to check whether it is a prime number.
+
+```
+
+
+
+```python
+# Exercise 1
+print("hello, world")
+
+# Exercise 2
+name = "hello"
+print(name)
+
+# Exercise 3
+a = float(input("First: "))
+b = float(input("Second: "))
+op = input("Operation: ")
+
+flag = True
+
+if op == '+':
+    result = a + b
+elif op == '-':
+    result = a - b
+elif op == '*':
+    result = a * b
+elif op == '/':
+    if b != 0:
+        result = a / b
+    else:
+        flag = False
+        result = "Error: Division by zero"
+elif op == '**': # power NICE!!
+    result = a ** b
+else:
+    result = "Error: Invalid operation"
+    flag = False
+
+if flag == True:
+    print(result)
+
+
+# Exercise 4
+def convert_temperature():
+    # Read input value
+    value = float(input("Value: "))
+
+    # Read current unit
+    unit = input("Unit: ")
+
+    # Read target unit
+    conversion = input("Conversion: ")
+
+    # Conversion formulas
+    if unit == "Celsius":
+        if conversion == "Kelvin":
+            result = value + 273.15
+        elif conversion == "Fahrenheit":
+            result = (value * 9 / 5) + 32
+        else:
+            result = "Error: Invalid conversion unit"
+    elif unit == "Kelvin":
+        if conversion == "Celsius":
+            result = value - 273.15
+        elif conversion == "Fahrenheit":
+            result = (value - 273.15) * 9 / 5 + 32
+        else:
+            result = "Error: Invalid conversion unit"
+    elif unit == "Fahrenheit":
+        if conversion == "Celsius":
+            result = (value - 32) * 5 / 9
+        elif conversion == "Kelvin":
+            result = (value - 32) * 5 / 9 + 273.15
+        else:
+            result = "Error: Invalid conversion unit"
+    else:
+        result = "Error: Invalid input unit"
+
+        # Print the result with correct symbols
+        if isinstance(result, str) and result.startswith("Error"):
+            print(result)
+        else:
+            # Determine the correct symbols for the units
+            unit_symbol = "°C" if unit == "celsius" else ("K" if unit == "kelvin" else "F")
+            conversion_symbol = "°C" if conversion == "celsius" else ("K" if conversion == "kelvin" else "F")
+
+            # Using string concatenation with + and correct symbols
+            print(str(value) + "°" + unit_symbol + " is " + "{:.2f}".format(result) + "°" + conversion_symbol)
+
+convert_temperature()
+
+# Exercise 5_recursive
+
+def factorial_recursive(n):
+    if n < 0:
+        return -1
+    elif n == 0 or n == 1:
+        return 1
+    else:
+        return n * factorial_recursive(n - 1)
+
+num = int(input("Enter a non-negative integer: "))
+result = factorial_recursive(num)
+
+if result == -1:
+    print("Error: Negative number")
+else:
+    print("Factorial of " + num + " is " + result)
+
+# Exercise 5_iterative
+
+num = int(input("Enter a non-negative integer: "))
+if num < 0:
+    print("Error: Negative number")
+else:
+    result = 1 # Key!!
+    for i in range(2, num + 1): # [ , )
+        result *= i
+    print("Factorial of " + num + " is " + result)
+
+# Exercise 6
+def is_prime(n):
+    if n <= 1:
+        return False
+    else:
+        flag = True
+        for i in range(2, int(n ** 0.5) + 1):
+            if n % i == 0:
+                flag = False
+                break
+        return flag
+
+number = int(input("Enter a number: "))
+if(is_prime(num)):
+    print(number + " is prime")
+else:
+    print(number + " is not prime")
+```
+
+
+
+# 正式讲解
+
 ## 面向过程
 
 ### Python简介
@@ -244,9 +437,8 @@ print(present,type(present))
 
 输出
 
-随便输入a
-
 ```python
+随便输入
 a <class 'str'>
 ```
 
@@ -273,7 +465,7 @@ a <class 'str'>
 ```python
 a,b,c=20,30,40分别给abc赋值
 
-a=b=c=20表示
+a=b=c=20
 
 ab进行交换：
 
@@ -361,11 +553,13 @@ print(bool(tuple()))#空元组
 
 print(bool({})) #空字典
 
-print(bool(dict())#空字典
+print(bool(dict()))#空字典
 
 print(bool(set()))#空集合
 
-print('以上布尔值全为false，其它对象的布尔值都为true')
+print('以上布尔值全为False，其它对象的布尔值都为True')
+
+print(bool(int)) # True
 ```
 
 
@@ -381,7 +575,7 @@ minus=int(input("请输入金额"))
 
 if money>=minus:
 
-money-=minus
+    money-=minus
 
 print(money)
 ```
@@ -393,11 +587,11 @@ print(money)
 ```python
 if 条件表达式:
 
-条件执行体1
+	条件执行体1
 
 else：
 
-条件执行体2
+	条件执行体2
 ```
 
 
@@ -407,17 +601,17 @@ else：
 ```python
 if 条件表达式1:
 
-条件执行体1
+	条件执行体1
 
 elif 条件表达式2：
 
-条件执行体2
+	条件执行体2
 
 elif 条件表达式N:
 
 [else:] #这个[]中的内容是可写可不写的，多分支else是可以省略的
 
-条件执行体N+1
+	条件执行体N+1
 ```
 
 
@@ -427,17 +621,17 @@ elif 条件表达式N:
 ```python
 if 条件表达式:
 
-if 条件表达式:
+	if 条件表达式:
 
-elif 条件表达式
+	elif 条件表达式
 
-else:
-
-else:
-
-if 条件表达式:
+	else:
 
 else:
+
+	if 条件表达式:
+
+	else:
 ```
 
 
@@ -449,11 +643,10 @@ num_a=int(input("请输入第一个整数："))
 
 num_b=int(input("请输入第二个整数："))
 
-print(str(num_a),'大于等于',str(num_b)
-
-if (num_a>=num_b) else str(num_a)+"小于"+str(num_b))
-
-#这里注意，整数和字符串想加是出错的，
+if (num_a >= num_b):
+    print(str(num_a), '>=', str(num_b))
+else:
+    print(str(num_a) + ' < ' + str(num_b)) # print(num_a + '<' + num_b) 是错的
 
 #这里注意，整数和字符串想加是出错的，需要转换才能进行--java这里可以自动识别相加，python不行
 
@@ -463,7 +656,7 @@ if (num_a>=num_b) else str(num_a)+"小于"+str(num_b))
 
 请输入第二个整数：1
 
-3 大于等于 1
+3 >= 1
 ```
 
 
@@ -586,42 +779,31 @@ for-in的语法结构
 
 ```python
 for item in 'Python':
-
-print(item) # 分别打印Python的各个字母
+    print(item) # 分别打印Python的各个字母
 
 for i in range(10):
+    print(i) # 打印1-9的数字
 
-print(i) # 打印1-9的数字
-#如果在循环体中不需要使用自定义变量，可以将其设置为_,以下打印5次
+# 如果在循环体中不需要使用自定义变量，可以将其设置为_,以下打印5次
 
 for _ in range(5):
+    print('人生苦短，我用python')
 
-print('人生苦短，我用python')
-
-sum = 0 #用于存储偶数和
-
+sum = 0 # 用于存储偶数和
 for item in range(1,100):
-
-if item%2 == 0:
-
-sum += item
-
+    if item%2 == 0:
+        sum += item
 print('1-100之间的偶数和为：',sum)
 
-水仙花数
-
+# 水仙花数
 for item in range(100,1000):
+    single = item % 10
+    ten = item // 10 % 10 # // 用作整除
+    hundred = item // 100
+    if(hundred**3+ten**3+single**3==item): # a**b 表示 a的b次方
+        print(item)
 
-single = item % 10
-
-ten = item // 10 % 10
-
-hundred = item // 100
-
-if(hundred**3+ten**3+single**3==item):
-
-print(item)
-
+'''
 java的这样输入
 
 //如153-java有明确的类型标注，不用和py一样//取整
@@ -641,34 +823,23 @@ int z = a%10;//个位数 3
 371
 
 407
+'''
 ```
 
 
 
-#### 流程控制语句
+#### ==流程控制语句==
 
 ```python
-break
-
-经常和if一起用
-
+# break continue 经常和if elif else一起用
 for item in range(3):
-
-pwd = input('请输入密码：')
-
-if pwd == '888':
-
-print("success")
-
-break #执行成功跳出for循环
-
-else:
-
-print('fail')
-
-continue
-
-用于结束当前循环，进入下一次循环，通常和if一起使用
+    pwd = input('请输入密码：')
+    if pwd == '888':
+        print("success")
+        break #执行成功跳出for循环
+    else:
+        print('fail')
+        continue # 用于结束当前循环，进入下一次循环，通常和if一起使用
 ```
 
 
@@ -684,39 +855,28 @@ continue
 - for...else: 没有碰到break时执行else
 
 ```python
-while...else
+# while...else 演示 (for...else同理)
 
 a = 0
-
 while a < 3:
-
-pwd=input('please input your password:')
-
-if pwd == '123':
-
-print('密码正确')
-
-break
-
+    pwd=input('please input your password:')
+    if pwd == '123':
+        print('密码正确')
+        break
+    else:
+        print('密码错误')
+        a+=1
 else:
-
-print('密码错误')
-
-else:
-
-print('sorry，三次均输入错误')
+    print('sorry，三次均输入错误')
 ```
 
 打印矩形
 
 ```python
 for i in range(1,4):
-
-for j in range(1,5):
-
-print("*",end = '\t') #不换行输出
-
-print()
+    for j in range(1,5):
+        print("*", end = '\t') #不换行输出
+    print()
 ```
 
 ```python
@@ -729,14 +889,10 @@ print()
 
 ```python
 for i in range(1,10): # 9行，不包括10
-
-for j in range (1,10):
-
-if(j<=i):
-
-print(str(j)+' * '+str(i)+' = '+str(j*i),end='\t')
-
-print()
+    for j in range (1,10):
+        if(j<=i):
+            print(str(j)+' * '+str(i)+' = '+str(j*i),end='\t')
+    print()
 ```
 
 输出
@@ -774,7 +930,7 @@ print()
 > break:
 > 如果有两层for循环，第二层循环中有if...break,跳出的是第二层for循环，继续执行第一层的下一个条件语句
 
-### 列表
+### ==列表==
 
 #### 为什么需要列表
 
@@ -792,7 +948,7 @@ print()
 
 
 
-- 列表元素按顺序有序培训
+- 列表元素按顺序有序排序
 
 - 索引映射唯一一个数据
 
@@ -872,24 +1028,23 @@ print(10 not in lst) #False
 
 ```python
 for item in lst:
-
-print(item)
+	print(item)
 ```
 
 列表元素的增删改操作
 
-增加
-
 - append()：在列表的末尾添加一个元素
-
 - extend()：在列表的末尾至少添加一个元素
-
 - insert()：在列表的任意位置添加一个元素
-
 - 切片：在列表的任意位置添加至少一个元素
 
-id没变说明，append是在同一个列表中添加元素，每一个元素的id不同，但这个列表的id不变
+增加
 
+添加列表
+
+- 将lst2作为一个元素添加到lst1的末尾
+
+```python
 lst=[10,20,30]
 
 print('添加元素之前',lst,id(lst)) #添加元素之前 [10, 20, 30] 1732983054336
@@ -898,32 +1053,31 @@ lst.append(40)
 
 print('添加元素之后',lst,id(lst)) #添加元素之后 [10, 20, 30, 40] 1732983054336
 
-添加列表
+# id没变说明，append是在同一个列表中添加元素，每一个元素的id不同，但这个列表的id不变
 
-- 将lst2作为一个元素添加到lst1的末尾
-
-```python
 lst2=['hello','world']
 
+# 用extend()添加列表
 lst.append(lst2)
 
 print(lst) #[10, 20, 30, 40, ['hello', 'world']]
 
-用extend()添加列表
+lst.remove(lst2) # 先删除元素
 
+# 用extend()添加列表
 lst2=['hello','world']
 
 lst.extend(lst2)
 
 print(lst) # [10, 20, 30, 40, 'hello', 'world']
 
-在任意位置上添加一个元素
+# 在任意位置上添加一个元素
 
-lst = [10,20,30]
+lst = [10,20,30] # 重新赋值 lst
 
 lst.insert(1,90)
 
-print(lst) #[10, 90, 20, 30, 40]
+print(lst) #[10, 90, 20, 30]
 ```
 
 切片
@@ -942,13 +1096,13 @@ print(lst) # [10, True, False, 'hello']
 
 列表元素的删除操作
 
-- remove()：一次删除一个元素
+- remove()：一次删除一个==指定元素==
 
 重复元素只删除第一个
 
 元素不存在抛出ValueError
 
-- pop() ：删除一个指定索引位置上的元素
+- pop() ：删除一个==指定索引==位置上的元素
 
 指定索引不存在抛出IndexError
 
@@ -986,11 +1140,11 @@ print(lst) # name 'lst' is not defined 既然删除了，那么就没有定义
 
 常见的两种方式：
 
-- 调用sort()方法，列表中所有元素默认按照从大到小顺序进行排序，指定reverse=True，进行降序排序，默认是False
+- 调用.sort()方法，列表中所有元素默认按照从大到小顺序进行排序，指定reverse=True，进行降序排序，默认是False
 
-- 调用内置函数sorted()，可以指定reverse=True，进行降序排序，原列表不发生改变，id不会变
+- 调用内置函数.sorted()，可以指定reverse=True，进行降序排序，原列表不发生改变，id不会变
 
-- sort()是对原列表进行排序，sorted()是对新列表进行排序
+- .sort()是对原列表进行排序，.sorted()是对新列表进行排序
 
 列表生成式
 
@@ -1000,7 +1154,7 @@ print(lst) # name 'lst' is not defined 既然删除了，那么就没有定义
 
 i * i 表示列表元素的表达式，自定义， for后面的 i 表示自定义变量，range(1,10)表示可迭代对象
 
-lst=[i for i in range(1,10)] #会产生一个1-9的整数序列，所以用[]括起来，这个列表中存的是产生的整数序列，产生的整数序列是i，所以在for之前加上i
+lst=[i for i in range(1,10)] # 会产生一个1-9的整数序列，所以用[]括起来，这个列表中存的是产生的整数序列，产生的整数序列是i，所以在for之前加上i
 
 ```python
 print(lst) #[1, 2, 3, 4, 5, 6, 7, 8, 9]
@@ -1126,15 +1280,11 @@ print(list(items)) # 这个小括号称为元祖[('张三', 100), ('李四', 98)
 scores={'张三':100,'李四':98,'王五':45}
 
 for item in scores:
-
-print(item,scores[item],scores.get(item)) # scpres.get()和scores[]都是根据key获取value
+	print(item,scores[item],scores.get(item)) # scpres.get()和scores[]都是根据key获取value
 
 输出
-
 张三 100 100
-
 李四 98 98
-
 王五 45 45
 ```
 
@@ -1281,8 +1431,7 @@ t[1].append(100) #列表是可变序列，是可以添加元素的，但是id是
 t = (10 ,[20,30],9)
 
 for item in t:
-
-print(item)
+	print(item)
 ```
 
 
@@ -1527,7 +1676,7 @@ print(a is b) # True
 
 > 由于字符串是不可变对象，当使用“+”连接字符串的时候，每执行一次“+”操作都会申请一块新的内存，然后复制上一个“+”操作的结果和本次操作的有操作符到这块内存空间中，所以用“+”连接字符串的时候会涉及内存申请和复制；join在连接字符串的时候，首先计算需要多大的内存存放结果，然后一次性申请所需内存并将字符串复制过去。在用"+"连接字符串时，结果会生成新的对象，而用join时只是将原列表中的元素拼接起来，因此在连接字符串数组的时候会考虑优先使用join。
 
-#### 字符串的常用操作
+### ==字符串的常用操作==
 
 #### 字符串的查询操作的方法
 
@@ -1628,9 +1777,7 @@ print(s1.split(sep='|',maxsplit=1)) # ['hello', 'world|Python']
 - isalnum()：判断指定字符串是否全部由字母和数字组成
 
 ```python
-s = 'hello,Python'
-
-print('1.',s.isidentifier()) # False 有， 只要非数字字母下划线都非标识符
+print('1.','hello,Python'.isidentifier()) # False 有， 只要非数字字母下划线都非标识符
 
 print('2.','hello_123'.isidentifier()) # True
 
@@ -1725,7 +1872,7 @@ print(a[::2]) #668
 
 
 
-#### 格式化字符串
+#### ==格式化字符串==
 
 #### 为什么要格式化字符串
 
@@ -1839,7 +1986,7 @@ b'\xe8\xa7\xa3\xe7\xa0\x81\xe7\xbc\x96\xe7\xa0\x81\xe6\x93\x8d\xe4\xbd\x9c'
 
 
 
-### 函数
+### ==函数==
 
 什么是函数？
 
@@ -1869,13 +2016,9 @@ b'\xe8\xa7\xa3\xe7\xa0\x81\xe7\xbc\x96\xe7\xa0\x81\xe6\x93\x8d\xe4\xbd\x9c'
 # 这里的a，b是形式参数-形参，形参的位置是在函数的定义处
 
 def calc(a,b):
-
-c = a+b
-
-return c
-
+    c = a+b
+    return c
 print(calc(10,50)) # 60 这里的10,50称为实际参数的值，简称实参
-
 print(calc(b=50,a=10)) #=左侧的变量名称为关键字参数，自动找a和b
 ```
 
@@ -1885,25 +2028,16 @@ print(calc(b=50,a=10)) #=左侧的变量名称为关键字参数，自动找a和
 
 ```python
 def fun(num):
-
-odd = [] # 存奇数
-
-even = [] # 存偶数
-
-for i in num:
-
-if i%2:
-
-odd.append(i)
-
-else:
-
-even.append(i)
-
-return odd,even
+    odd = [] # 存奇数
+    even = [] # 存偶数
+    for i in num:
+        if i%2: # 省了 == 1
+        	odd.append(i)
+        else:
+        	even.append(i)
+    return odd,even
 
 lst=fun([10,21,33,66,88,99])
-
 print(lst) # ([21, 33, 99], [10, 66, 88])
 ```
 
@@ -1923,11 +2057,8 @@ print(lst) # ([21, 33, 99], [10, 66, 88])
 
 ```python
 def fun(a,b=10)
-
-print(a,b)
-
+	print(a,b)
 fun(100) #只传一个参数，b采用默认值
-
 fun(20,30) #30将默认值10替换
 ```
 
@@ -1943,13 +2074,9 @@ fun(20,30) #30将默认值10替换
 
 ```python
 def fun(*args): # 函数定义时的 可变的位置参数
-
-print(args)
-
+	print(args)
 fun(10)
-
 fun(10,30)
-
 fun(30,405,50)
 
 """
@@ -1977,11 +2104,9 @@ fun(30,405,50)
 
 ```python
 def fun1(**args):
-
-print(args)
+	print(args)
 
 fun1(a=10) # {'a': 10}
-
 fun1(a=20,b=30,c=40) # {'a': 20, 'b': 30, 'c': 40}
 ```
 
@@ -2001,12 +2126,9 @@ def fun(**args1，*arg2):
 
 ```python
 def fun(a,b,c):
-
-print(a,end='\t')
-
-print(b,end='\t')
-
-print(c,end='\t')
+    print(a,end='\t')
+    print(b,end='\t')
+    print(c,end='\t')
 
 fun(10,20,30) # 10 20 30 函数调用时的参数传递，称为位置传参
 
@@ -2025,8 +2147,7 @@ fun(**dic) # 111 222 333 在函数调用时，将字段的键值对都转换为�
 # 个数可变的关键字传参
 
 def fun4(**args):
-
-print(args)
+	print(args)
 
 fun4(a=666,b=888) # {'a': 666, 'b': 888}
 ```
@@ -2035,14 +2156,10 @@ fun4(a=666,b=888) # {'a': 666, 'b': 888}
 
 ```python
 def fun5(a,b,*,c,d):
-
-print(a)
-
-print(b)
-
-print(c)
-
-print(d)
+    print(a)
+    print(b)
+    print(c)
+    print(d)
 
 fun5(a=10,b=20,c=30,d=40) # 10 20 30 40
 
@@ -2089,15 +2206,11 @@ pass
 
 ```python
 def fun():
-
-global age # 声明global在外部也可以使用了
+	global age # 声明global在外部也可以使用了
 
 age=20
-
 print(age) # 20
-
 fun()
-
 print(age+1) # 21
 ```
 
@@ -2129,26 +2242,26 @@ print(age+1) # 21
 
 形如1 1 2 3 5 8..每一项都前两项之和
 
-# 斐波那契数列
+#### ==斐波那契数列==
 
 ```python
 def fib(n):
-
-if n == 1 or n == 2:
-
-return 1
-
-else:
-
-return fib(n-1)+fib(n-2)
-
-print(fib(3)) # 2
+    if n == 1 or n == 2:
+    	return 1
+    else:
+    	return fib(n-1)+fib(n-2)
 
 # 输出前四项数组
-
 for i in range(1,5):
-
 print(fib(i)) # 1 1 2 3
+
+'''
+下面这个写法明显更好，一方面指定main（多人协作别人调用你的函数不需要附带测试，自己的大项目非main函数不调用）
+if __name__ == '__main__':
+    n = int(input("请输入数列的项数："))
+    res = fibo(n)
+    print(res)
+'''
 ```
 
 
@@ -2163,11 +2276,11 @@ print(fib(i)) # 1 1 2 3
 
 - 捕获异常的顺序按照先子类后父类的顺序，为了避免遗漏可能出现的异常，可以在最后增加BaseException
 
-try...except...else结构
+==try...except...else==结构
 
 - 如果try块中没有抛出异常，则执行else块，如果try中抛出异常，则执行except块
 
-try...except...else..finally结构
+==try...except...else..finally==结构
 
 - finally块无论是否发生异常都会被执行，能常用来释放try块中申请的资源
 
@@ -2175,48 +2288,30 @@ try...except...else..finally结构
 
 ```python
 try:
-
-a = int(input('请输入第一个整数：'))
-
-b = int(input('请输入第二个整数：'))
-
-result = a/b
-
-print('结果为：',result)
-
+    a = int(input('请输入第一个整数：'))
+    b = int(input('请输入第二个整数：'))
+    result = a/b
+    print('结果为：',result)
 except ZeroDivisionError:
-
-print('对不起，除数不能为0')
-
+	print('对不起，除数不能为0')
 except ValueError:
-
-print('只能输入数字串')
-
-print('程序结束')
+    print('只能输入数字串')
+    print('程序结束')
 ```
 
 案例2
 
 ```python
 try:
-
-a = int(input('请输入第一个整数:'))
-
-b = int(input('请输入第二个整数:'))
-
-result = a/b
-
+    a = int(input('请输入第一个整数:'))
+    b = int(input('请输入第二个整数:'))
+    result = a/b
 except BaseException as e:
-
-print('出错了',e)
-
+	print('出错了',e)
 else:
-
-print('计算结果为：',result)
-
+	print('计算结果为：',result)
 finally:
-
-print('谢谢你的使用')
+	print('谢谢你的使用')
 ```
 
 Python中常见的异常
@@ -2300,49 +2395,35 @@ pass
 ```python
 # 创建的语法
 
-class Studnet:
+class Student:  # 修正类名拼写错误
 
-native_pace = '吉林' # 类属性
+    native_pace = '香港'  # 类属性
 
-# 初始化方法 这个self赋值时候不用写，赋值name和age即可，self默认带
+    # 初始化方法 这个self赋值时候不用写，赋值name和age即可，self默认带
+    def __init__(self, name, age):  # 将局部变量的值赋值给实体属性，self.name称为实例属性
+        self.name = name
+        self.age = age
 
-def __init__(self,name,age): # 将局部变量的值赋值给实体属性，self.name称为实例属性
+    # 实例方法
+    # self 为这个方法名，name,age的为实例属性
+    def eat(self):  # 这个self这里必写，self单词可以变，但程序员习惯self
+        print('学生在吃饭')
 
-self.name = name
+    # 在类外定义的称为函数，类之内称为方法
 
-self.age = age
+    # 类方法
+    @classmethod
+    def cm(cls):
+        print('类方法')
 
-# 实例方法
-
-# self 为这个方法名，name,age的为实例属性
-
-def eat(self): # 这个self这里必写，self单词可以变，但程序员习惯self
-
-print('学生在吃饭')
-
-# 在类外定义的称为函数，类之内称为方法
-
-# 类方法
-
-@classmethod
-
-def cm(cls):
-
-print('类方法')
-
-# 静态方法中不能写self，注意
-
-@staticmethod
-
-def sm():
-
-print('静态方法')
+    # 静态方法中不能写self，注意
+    @staticmethod
+    def sm():
+        print('静态方法')
 
 # 类之外定义的称为函数，在类之内定义的称为方法
-
-def drink():
-
-print('喝水')
+def drink():  # 移动到类外部
+    print('喝水')
 ```
 
 
@@ -2376,150 +2457,128 @@ Student.eat(stu1)
 - Python是动态语言，在创建对象之后，可以动态地绑定属性和方法
 
 ```python
-stu1 = Studnet('张三',20)
+stu1 = Student('张三', 20)
+stu2 = Student('李四', 30)
 
-stu2 = Studnet('李四',30)
-
-print(id(stu1)) # 和stu2不同
-
+print(id(stu1))  # 和stu2不同
 print(id(stu2))
 
 print('--------为stu2动态绑定性别属性-----------')
-
-stu2.gender = '女' # 这点和java不一样，java没有成员变量(属性-字段)，是不能指定的
-
-# Student中没有 gender属性 能动态绑定性别 ,只属于stu2自己
-
-print(stu2.gender) # 女
-
-
+stu2.gender = '女'  # 这点和java不一样，java没有成员变量(属性-字段)，是不能指定的
+print(stu2.gender)  # 女
 
 def show():
+    print('定义在类之外的，称函数')
 
-print('定义在类之外的，称函数')
+# 动态绑定方法（实际上是绑定函数对象）
+stu1.show = show  # 注意这里不能加括号，否则会直接调用函数
+                 # 现在 show 是 stu1 的实例属性（一个函数）
 
-stu1.show = show()
-
-stu1.show # 定义在类之外的，称函数
-
-stu2.show # 报错 没有胃stu2动态绑定show方法,在对象上之后函数就称为方法了
+stu1.show()      # 正确调用方式（需要括号）定义在类之外的，称为函数
+# stu2.show()    # 会报错 AttributeError（未绑定该方法）报错 没有为stu2动态绑定show方法,在对象上之后函数就称为方法了
 ```
 
 
 
 #### 面向对象的三大特征
 
-- 封装：提高程序的安全性
+1. 封装：提高程序的安全性
 
-- 将数据（属性）和行为（方法）包装到类中。在方法内部对属性进行操作，在类对象的外部调用方法。这样，无需关心方法内部的具体实现细节，从而隔离了复杂度
+    - 将数据（属性）和行为（方法）包装到类中。在方法内部对属性进行操作，在类对象的外部调用方法。这样，无需关心方法内部的具体实现细节，从而隔离了复杂度
 
-- 在Python中没有专门的修饰符用于属性的私有，如果该属性不希望在类对象外部被访问，前面使用两个"-"
 
-- 继承：提高代码的复用性
+    - 在Python中没有专门的修饰符用于属性的私有，如果该属性不希望在类对象外部被访问，前面使用两个"-"
 
-- 如果一个类没有继承任何类，默认继承object
 
-- Python支持多继承（java不支持多继承）
+2. 继承：提高代码的复用性
 
-- 定义子类时，必须在其构造函数中调用父类的构造函数
+    - 如果一个类没有继承任何类，默认继承object
 
-- 多态：提高程序的可扩展性和维护性
 
-封装
+    - Python支持多继承（java不支持多继承）
+
+
+    - 定义子类时，必须在其构造函数中调用父类的构造函数
+
+
+3. 多态：提高程序的可扩展性和维护性
+
+
+
+### 封装
 
 ```python
 class Student:
+    def __init__(self, name, age):
+        self.name = name       # 公共属性
+        self.__age = age       # 私有属性（双下划线开头）
 
-def __init__(self,name,age):
+    def show(self):
+        print(self.name, self.__age)  # 类内部可以直接访问私有属性
 
-self.name = name
+stu = Student('张三', 20)
 
-self.__age = age
+# 在类外部访问属性
+print(stu.name)        # 正常输出: 张三
+# print(stu.__age)     # 报错: AttributeError（无法直接访问私有属性）
 
-def show(self):
+# 查看对象的所有属性/方法
+print(dir(stu))        # 输出中包含被改编后的属性名 '_Student__age'
 
-print(self.name,self.__age)
-
-stu = Student('张三',20)
-
-# 在类外部使用name、age
-
-print(stu.name) # 张三
-
-# print(stu.__age) # 报错
-
-print(dir(stu)) # dir()可以查看类的所有属性和方法 ，里面找到一个_Student__age
-
-print(stu._Student__age) # 这样也能访问，但是不建议这种访问方式
+# 强制访问私有属性（不建议！）
+print(stu._Student__age)  # 输出: 20（通过名称改编后的名称访问）
 ```
 
 
 
 ```python
 class Student2:
+    def __init__(self, age):
+        self.set_age(age)  # 通过方法进行初始化验证
 
-def __init__(self,age):
+    def get_age(self):
+        return self.__age  # 私有属性通过方法访问 # 不希望在外面使用，所以加上两个__
 
-self.set_age(age)
+    def set_age(self, age):
+        if 0 <= age <= 120:
+            self.__age = age
+        else:
+            self.__age = 18
 
-def get_age(self):
-
-return self.__age # 不希望在外面使用，所以加上两个__
-
-def set_age(self,age):
-
-if 0<=age<=120:
-
-self.__age = age
-
-else:
-
-self.__age = 18
-
+# 测试代码
 stu1 = Student2(150)
-
 stu2 = Student2(30)
 
-print(stu1.get_age()) # 18
-
-print(stu2.get_age()) # 30
+print(stu1.get_age())  # 输出: 18
+print(stu2.get_age())  # 输出: 30
 ```
 
-继承
+
+
+### 继承
 
 ```python
-class Person(object): #object默认不写也行
+# 父类定义
+class Person(object):  # (object)在Python3中可以省略
+    def __init__(self, name, age):
+        self.name = name
+        self.age = age
 
-def __init__(self,name,age):
+    def info(self):
+        print(f'姓名：{self.name}，年龄：{self.age}')  # 优化字符串格式
 
-self.name = name
-
-self.age = age
-
-def info(self):
-
-print('姓名：{0},年龄{1}'.format(self.name,self.age))
-
-# 定义子类
-
+# 子类定义
 class Student(Person):
+    def __init__(self, name, age, score):
+        super().__init__(name, age)  # 正确调用父类初始化方法，想用父类的info()可以super.
+        self.score = score
 
-def __init__(self,name,age,score):
-
-super().__init__(name,age)
-
-self.score = score
-
-def info(self):
-
-super.info()# 还想用父类的info()可以super.
-
-print(self.score)# 重写
+    def info(self):
+        super().info()  # 正确调用父类方法（需加括号）
+        print(f'学号：{self.score}')  # 添加明确描述
 
 # 测试
-
-stu = Student('Haha',20,'1001')
-
+stu = Student('Haha', 20, '1001')  # 学号通常为字符串类型是合理的
 stu.info() # 从父类中继承的方法 ，重写后就是Student的方法了
 ```
 
@@ -2537,22 +2596,16 @@ stu.info() # 从父类中继承的方法 ，重写后就是Student的方法了
 
 ```python
 class Student:
+    def __init__(self, name, age):
+        self.name = name  # 增加赋值符号周围的空格
+        self.age = age
 
-def __init__(self,name,age):
+    def __str__(self):  # 注意双下划线
+        return '我的名字是{0}，今年{1}岁'.format(self.name, self.age)  # 优化中文标点
 
-self.name=name
-
-self.age=age
-
-def __str__(self):
-
-return '我的名字是{0},今年{1}岁'.format(self.name,self.age)
-
-
-
-stu=Student('Haha',20)
-
+stu = Student('Haha', 20)
 print(stu) # 我的名字是Haha,今年{20}岁 默认调用_str_()这样的方法
+# 输出：我的名字是Haha，今年20岁
 ```
 
 
@@ -2565,26 +2618,18 @@ print(stu) # 我的名字是Haha,今年{20}岁 默认调用_str_()这样的方�
 
 ```python
 class Animal:
-
-def eat(self):
-
-print('eating...')
+    def eat(self):
+        print('eating...')
 
 class Dog(Animal):
-
-def eat(self):
-
-print('dog gnawing...')
-
-
+    def eat(self):  # 正确的方法重写
+        print('dog gnawing...')  # 修正输出内容拼写
 
 def fun(obj):
+    obj.eat()
 
-obj.eat()
-
-fun(Animal()) # eating...
-
-fun(Dog()) # # dong gnawing
+fun(Animal())  # 输出: eating...
+fun(Dog())     # 输出: dog gnawing...
 ```
 
 
@@ -2795,7 +2840,7 @@ print(computer3,computer.cpu,computer3.disk)
 > 多态对于：动态语言关注对象的行为
 > 静态语言：继承、方法重写、父类引用指向子类对象
 
-### 模块
+### ==模块==
 
 - 英文为Modules
 
@@ -2862,12 +2907,10 @@ print(pow(2,3)) # 如果不导入math，只导入from math import pi 是不能�
 # 开发时间：2023/2/11
 
 def add(a,b):
-
-return a+b
+	return a+b
 
 if __name__ == '__main__':
-
-print(add(10,20)) # 只有当运行这个calc2的时候才会执行这个主程序语句，可防止其它程序调用此类运行这个
+	print(add(10,20)) # 只有当运行这个calc2的时候才会执行这个主程序语句，可防止其它程序调用此类运行这个
 ```
 
 Python中的包
